@@ -8,3 +8,6 @@ setuptools==52.0.0.post20210125
 sqlparse==0.4.1
 wheel==0.36.2
 wincertstore==0.2
+django-bootstrap4
+pillow
+django-pydenticon

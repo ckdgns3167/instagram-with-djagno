@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third Apps
+    'bootstrap4',
+    'django_pydenticon',
 
     # Locals Apps
-
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +86,9 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = 'root'
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -120,7 +125,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [BASE_DIR / 'instagram_with_django' / 'static']
+STATICFILES_DIRS = [
+    # BASE_DIR / 'instagram_with_django' / 'static'
+    os.path.join(BASE_DIR, 'instagram_with_django', 'static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
