@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Instagram with Django</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="{% static "bootstrap-4.0.0-dist/css/bootstrap.min.css" %}"/>
     <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'jquery.form-3.51.0.min.js' %}"></script>
     <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'my-css.css' %}">
@@ -26,7 +30,9 @@
             <div class="col-sm-12">
                 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white">
                     <h5 class="my-0 mr-md-auto font-weight-normal">
-                        <img src="{% static 'logo.png' %}" alt="instagram"/>
+                        <a href="{% url 'root' %}">
+                            <img src="{% static 'logo.png' %}" alt="instagram"/>
+                        </a>
                     </h5>
                     {% if user.is_authenticated %}
                         <nav class="my-2 my-md-0 mr-md-3">
@@ -45,13 +51,15 @@
                                 </svg>
                             </a>
                             <a class="p-2 text-dark" href="{% url 'profile_edit' %}">
-                                {% if user.avatar %}
-                                    <img src="{{ user.avatar.url }}"
-                                         style="width: 24px; height: 24px; position: relative; top: -7px;"/>
-                                {% else %}
-                                    <img src="{% url 'pydenticon_image' user.username %}"
-                                         style="width: 24px; height: 24px; position: relative; top: -7px;"/>
-                                {% endif %}
+                                <img src="{{ user.avatar_url }}" class="rounded-circle"
+                                     style="width: 24px; height: 24px; position: relative; top: -7px;"/>
+                                {#                                {% if user.avatar %}#}
+                                {#                                    <img src="{{ user.avatar.url }}"#}
+                                {#                                         style="width: 24px; height: 24px; position: relative; top: -7px;"/>#}
+                                {#                                {% else %}#}
+                                {#                                    <img src="{% url 'pydenticon_image' user.username %}"#}
+                                {#                                         style="width: 24px; height: 24px; position: relative; top: -7px;"/>#}
+                                {#                                {% endif %}#}
                             </a>
                         </nav>
                     {% endif %}

@@ -1,0 +1,30 @@
+{% extends 'instagram/layout.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pl-4 pr-4 pb-3">
+                    <a href="{% url "instagram:post_new" %}" class="btn btn-primary">New Post</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="pl-4 pb-4">
+                    {% for post in post_list %}
+                        <div class="mb-3">
+                            {% include 'instagram/_post_card.html' %}
+                        </div>
+                    {% empty %}
+                        포스팅이 없습니다.
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pr-4 pb-4">
+                    {% include 'instagram/timeline_sidebar.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

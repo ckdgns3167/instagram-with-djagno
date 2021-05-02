@@ -11,3 +11,4 @@ wincertstore==0.2
 django-bootstrap4
 pillow
 django-pydenticon
+easy-thumbnails

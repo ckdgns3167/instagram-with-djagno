@@ -6,12 +6,13 @@ from django.contrib.auth.views import (
     LoginView, LogoutView, logout_then_login,
     PasswordChangeView as AuthPasswordChangeView
 )
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy
 
 from accounts.forms import SignupForm, ProfileForm, PasswordChangeForm
+from .models import User
 
 login = LoginView.as_view(template_name="accounts/login_form.html")
 
@@ -61,4 +62,26 @@ class PasswordChangeView(LoginRequiredMixin, AuthPasswordChangeView):
         messages.success(self.request, '암호가 변경되었습니다.')
         return super().form_valid(form)
 
+
 password_change = PasswordChangeView.as_view()
+
+
+@login_required
+def user_follow(request, username):
+    follow_user = get_object_or_404(User, username=username, is_active=True)
+    request.user.following_set.add(follow_user)
+    follow_user.follower_set.add(request.user)
+    messages.success(request, f"{follow_user}님을 팔로우했습니다.")
+    redirect_url = request.META.get("HTTP_REFERER", "root")
+    return redirect(redirect_url)
+
+
+
+@login_required
+def user_unfollow(request, username):
+    unfollow_user = get_object_or_404(User, username=username, is_active=True)
+    request.user.following_set.remove(unfollow_user)
+    unfollow_user.follower_set.remove(request.user)
+    messages.success(request, f"{unfollow_user}님을 언팔했습니다.")
+    redirect_url = request.META.get("HTTP_REFERER", "root")
+    return redirect(redirect_url)

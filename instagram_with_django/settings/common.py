@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     # Third Apps
     'bootstrap4',
     'django_pydenticon',
+    'easy_thumbnails',
 
     # Locals Apps
     'accounts',
