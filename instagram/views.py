@@ -27,7 +27,7 @@ def index(request):
                               .exclude(pk=request.user.pk) \
                               .exclude(pk__in=request.user.following_set.all())[:3]
 
-    comment_form = CommentForm()
+    comment_form = CommentForm(auto_id=False)
     return render(request, 'instagram/index.html', {
         'post_list': post_list,
         'suggested_user_list': suggested_user_list,
@@ -56,7 +56,7 @@ def post_new(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comment_form = CommentForm()
+    comment_form = CommentForm(auto_id=False)
     return render(request, 'instagram/post_detail.html', {
         'post': post,
         'comment_form': comment_form
@@ -85,7 +85,7 @@ def post_unlike(request, pk):
 def comment_new(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
+        form = CommentForm(request.POST, request.FILES, auto_id=False)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -97,7 +97,7 @@ def comment_new(request, post_pk):
                 })
             return redirect(comment.post)
     else:
-        form = CommentForm()
+        form = CommentForm(auto_id=False)
     return render(request, "instagram/comment_form.html", {
         'form': form
     })
